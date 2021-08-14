@@ -1,13 +1,20 @@
 <resources>
     <string name="app_name">Forecast</string>
-    <string name="temp">Temperature %.2f&#xb0;</string>
-    <string name="temp_max">Max %.2f&#xb0;</string>
-    <string name="temp_min">Min %.2f&#xb0;</string>
-    <string name="temp_feel">Feels Like %.2f&#xb0;</string>
-    <string name="humidity">Humidity %d</string>
-    <string name="wind_speed">Wind speed %.2f km/h</string>
+    <string name="temp">Temperature %.2f&#xb0;C</string>
+    <string name="temp_max">Max %.2f&#xb0;C</string>
+    <string name="temp_min">Min %.2f&#xb0;C</string>
+    <string name="temp_feel">Feels Like %.2f&#xb0;C</string>
+    <string name="wind_speed">Wind speed %.2f m/sec</string>
+
+    <string name="temp_imperial">Temperature %.2f&#xb0;F</string>
+    <string name="temp_max_imperial">Max %.2f&#xb0;F</string>
+    <string name="temp_min_imperial">Min %.2f&#xb0;F</string>
+    <string name="temp_feel_imperial">Feels Like %.2f&#xb0;F</string>
+    <string name="wind_speed_imperial">Wind speed %.2f mph</string>
+
     <string name="wind_deg">Wind deg %d&#xb0;</string>
     <string name="url">%s%s.png</string>
+    <string name="humidity">Humidity %d</string>
     <string name="rain_volume"> %.2f mm</string>
     <string name="date">%d-%d-%d %d:%d %s</string>
     <string name="message_delete_city">Are you sure you want to remove %s?</string>
@@ -15,4 +22,5 @@
     <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
     <string name="select_city">Select City</string>
+    <string name="metric">metric</string>
 </resources>

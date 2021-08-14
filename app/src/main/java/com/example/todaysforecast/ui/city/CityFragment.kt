@@ -28,6 +28,7 @@ class CityFragment : Fragment() {
     private lateinit var binding: CityFragmentBinding
     private val viewModel: CityViewModel by viewModels()
     private val args: CityFragmentArgs by navArgs()
+    private var selcetedUnit: String = ""
 
     @Inject
     lateinit var dataManager: DataManager
@@ -52,21 +53,54 @@ class CityFragment : Fragment() {
                 Resource.Status.SUCCESS -> {
 
                     it?.data?.let { weatherInfo ->
+                        dataManager.unitType.asLiveData().observe(viewLifecycleOwner) { unit ->
+                            if (unit.equals("metric")) {
+                                binding.temperature.text =
+                                    getString(R.string.temp, weatherInfo.main.temp).makeTitleBold()
+                                binding.tempFeel.text = getString(
+                                    R.string.temp_feel,
+                                    weatherInfo.main.feelsLike
+                                ).makeTitleBold()
+                                binding.tempMax.text = getString(
+                                    R.string.temp_max,
+                                    weatherInfo.main.tempMax
+                                ).makeTitleBold()
+                                binding.tempMin.text = getString(
+                                    R.string.temp_min,
+                                    weatherInfo.main.tempMin
+                                ).makeTitleBold()
+                                binding.windSpeed.text = getString(
+                                    R.string.wind_speed,
+                                    weatherInfo.wind.speed
+                                ).makeTitleBold()
+                            } else {
+                                binding.temperature.text =
+                                    getString(
+                                        R.string.temp_imperial,
+                                        weatherInfo.main.temp
+                                    ).makeTitleBold()
+                                binding.tempFeel.text = getString(
+                                    R.string.temp_feel_imperial,
+                                    weatherInfo.main.feelsLike
+                                ).makeTitleBold()
+                                binding.tempMax.text = getString(
+                                    R.string.temp_max_imperial,
+                                    weatherInfo.main.tempMax
+                                ).makeTitleBold()
+                                binding.tempMin.text = getString(
+                                    R.string.temp_min_imperial,
+                                    weatherInfo.main.tempMin
+                                ).makeTitleBold()
+                                binding.windSpeed.text = getString(
+                                    R.string.wind_speed_imperial,
+                                    weatherInfo.wind.speed
+                                ).makeTitleBold()
+                            }
+                        }
 
-                        binding.temperature.text =
-                            getString(R.string.temp, weatherInfo.main.temp).makeTitleBold()
-                        binding.tempFeel.text = getString(
-                            R.string.temp_feel,
-                            weatherInfo.main.feelsLike
-                        ).makeTitleBold()
-                        binding.tempMax.text =
-                            getString(R.string.temp_max, weatherInfo.main.tempMax).makeTitleBold()
-                        binding.tempMin.text =
-                            getString(R.string.temp_min, weatherInfo.main.tempMin).makeTitleBold()
                         binding.humidity.text =
                             getString(R.string.humidity, weatherInfo.main.humidity).makeTitleBold()
-                        binding.windSpeed.text =
-                            getString(R.string.wind_speed, weatherInfo.wind.speed).makeTitleBold()
+
                         binding.windDeg.text =
                             getString(R.string.wind_deg, weatherInfo.wind.deg).makeTitleBold()
                         binding.dateTime.text = weatherInfo.dtTxt
@@ -101,8 +135,13 @@ class CityFragment : Fragment() {
                                 )
                             )
                         }
-                        dataManager.unitType.asLiveData().observe(viewLifecycleOwner) {
-                            viewModel.getFiveDayForecast(cityInfo.latitude, cityInfo.longitude, it)
+                        dataManager.unitType.asLiveData().observe(viewLifecycleOwner) { unit ->
+                            selcetedUnit = unit
+                            viewModel.getFiveDayForecast(
+                                cityInfo.latitude,
+                                cityInfo.longitude,
+                                unit
+                            )
                         }
                     }
                 }
@@ -124,7 +163,11 @@ class CityFragment : Fragment() {
                         binding.cityForecast.layoutManager = LinearLayoutManager(context)
                         binding.cityForecast.setHasFixedSize(true)
                         binding.cityForecast.adapter =
-                            ForecastAdapter(cityInfo.name, forecast.list.toTypedArray())
+                            ForecastAdapter(
+                                selcetedUnit,
+                                cityInfo.name,
+                                forecast.list.toTypedArray()
+                            )
                     }
                 }
                 Resource.Status.LOADING -> {

@@ -13,12 +13,14 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaysforecast.BuildConfig
 import com.example.todaysforecast.R
 import com.example.todaysforecast.databinding.HomeFragmentBinding
+import com.example.todaysforecast.db.DataManager
 import com.example.todaysforecast.model.bookmarked.BookmarkedCities
 import com.example.todaysforecast.utils.Utils
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -28,12 +30,17 @@ import com.schibstedspain.leku.permissions.PermissionUtils.requestLocationPermis
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var viewBinding: HomeFragmentBinding
+
+    @Inject
+    lateinit var dataManager: DataManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +56,14 @@ class HomeFragment : Fragment() {
                 selectCity()
             } else {
                 requestLocationPermission(requireActivity())
+            }
+        }
+        dataManager.unitType.asLiveData().observe(viewLifecycleOwner) {
+            viewBinding.units.isChecked = it.equals("metric", true)
+        }
+        viewBinding.units.setOnCheckedChangeListener { buttonView, isChecked ->
+            lifecycleScope.launch {
+                dataManager.storeData(unitType = if (isChecked) "metric" else "imperial")
             }
         }
         viewModel.getForecastDao().getAllCities().observe(viewLifecycleOwner, {
