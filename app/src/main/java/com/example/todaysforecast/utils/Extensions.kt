@@ -20,7 +20,6 @@ fun String.makeTitleBold(): SpannedString {
 }
 
 fun Long.toReadableDate(): String {
-    if (this == null) return ""
     //Get instance of calendar
     val calendar = Calendar.getInstance(Locale.getDefault())
     //get current date from ts

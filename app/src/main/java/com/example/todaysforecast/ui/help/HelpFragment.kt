@@ -25,4 +25,5 @@ class HelpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.webview.loadUrl("file:///android_asset/tutorial.html")
     }
+
 }

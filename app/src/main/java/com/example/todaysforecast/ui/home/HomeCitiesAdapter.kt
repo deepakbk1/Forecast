@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaysforecast.databinding.CitiesItemCardBinding
-import com.example.todaysforecast.db.ForecastDao
 import com.example.todaysforecast.model.bookmarked.BookmarkedCities
 
 class HomeCitiesAdapter(
     private val myCitiesList: Array<BookmarkedCities>,
-    val clickListener: (isDelete:Boolean,BookmarkedCities) -> Unit
+    val clickListener: (isDelete: Boolean, BookmarkedCities) -> Unit
 ) :
     RecyclerView.Adapter<HomeCitiesAdapter.ViewHolder>() {
 

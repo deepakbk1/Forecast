@@ -73,7 +73,12 @@ class CityFragment : Fragment() {
                         if (weatherInfo.weather.isNotEmpty()) {
                             when (weatherInfo.weather[0].main) {
                                 "Rain", "Thunderstorm", "Drizzle" -> binding.weatherTitle.text =
-                                    weatherInfo.weather[0].description.plus(getString(R.string.rain_volume, weatherInfo.rain.h))
+                                    weatherInfo.weather[0].description.plus(
+                                        getString(
+                                            R.string.rain_volume,
+                                            weatherInfo.rain.h
+                                        )
+                                    )
                                 else -> binding.weatherTitle.text =
                                     weatherInfo.weather[0].description
 

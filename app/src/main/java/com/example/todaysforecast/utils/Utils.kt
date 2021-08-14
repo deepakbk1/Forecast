@@ -8,6 +8,7 @@ import com.example.todaysforecast.model.LocationData
 import java.io.IOException
 import java.util.*
 
+
 object Utils {
 
     fun geoAddress(context: Context, lattitude: Double, longitude: Double): LocationData? {
@@ -34,9 +35,9 @@ object Utils {
     fun getWeatherRes(weather: String, pod: String): Int {
         return when (weather) {
             "Clouds" -> if (pod == "d") R.raw.clouds_few else R.raw.cloudynight
-            "Thunderstorm" -> R.raw.rainy
-            "Drizzle" -> R.raw.rainy
-            "Rain" -> R.raw.rainy
+            "Thunderstorm" -> R.raw.thunderstorm
+            "Drizzle" -> if (pod == "d") R.raw.drizzle else R.raw.drizzle_night
+            "Rain" -> if (pod == "d") R.raw.rainy else R.raw.rainy_night
             "Snow" -> R.raw.snowfall
             else -> if (pod == "d") R.raw.sunny else R.raw.clear_night
         }

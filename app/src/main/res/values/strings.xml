@@ -10,4 +10,9 @@
     <string name="url">%s%s.png</string>
     <string name="rain_volume"> %.2f mm</string>
     <string name="date">%d-%d-%d %d:%d %s</string>
+    <string name="message_delete_city">Are you sure you want to remove %s?</string>
+    <string name="delete">Delete?</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_city">Select City</string>
 </resources>
