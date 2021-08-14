@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.todaysforecast.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_homeFragment_to_cityFragment"
+            app:destination="@id/cityFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cityFragment"
+        android:name="com.example.todaysforecast.ui.city.CityFragment"
+        android:label="city_fragment"
+        tools:layout="@layout/city_fragment">
+        <argument
+            android:name="city_info"
+            app:argType="com.example.todaysforecast.model.bookmarked.BookmarkedCities" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.example.todaysforecast.ui.help.HelpFragment"
+        android:label="help_fragment"
+        tools:layout="@layout/help_fragment" />
+</navigation>
