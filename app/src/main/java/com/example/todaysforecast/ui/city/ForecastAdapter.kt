@@ -88,12 +88,17 @@ class ForecastAdapter(
         if (weatherInfo.weather.isNotEmpty()) {
             when (weatherInfo.weather[0].main) {
                 "Rain", "Thunderstorm", "Drizzle" -> holder.binding.weatherTitle.text =
-                    weatherInfo.weather[0].description.plus(
+                    if (selcetedUnit.equals("metric", true))
                         context.getString(
                             R.string.rain_volume,
+                            weatherInfo.weather[0].description,
+                            weatherInfo.rain.h
+                        ) else
+                        context.getString(
+                            R.string.rain_volume_imperial,
+                            weatherInfo.weather[0].description,
                             weatherInfo.rain.h
                         )
-                    )
                 else -> holder.binding.weatherTitle.text =
                     weatherInfo.weather[0].description
             }
